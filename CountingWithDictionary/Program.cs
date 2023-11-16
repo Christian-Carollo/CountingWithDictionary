@@ -38,7 +38,14 @@ class Program
             {
                 string? parolaSenzaSpazi = elemento.Trim();
 
-                variabileConta[parolaSenzaSpazi] = variabileConta.TryGetValue(parolaSenzaSpazi, out int conta) ? conta + 1 : 1;
+                if(variabileConta.TryGetValue(parolaSenzaSpazi, out int conta)){
+
+                    variabileConta[parolaSenzaSpazi] = conta ++;
+                }
+                else
+                {
+                    variabileConta[parolaSenzaSpazi] = 1;
+                }
             }
         }
         return variabileConta;
