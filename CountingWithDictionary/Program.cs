@@ -6,14 +6,12 @@ class Program
 {
     static void Main()
     {
-
-        Console.WriteLine("Inserisci percorso File:\n"); // C:\Users\Administrator.DESKTOP-95RB6IG\Desktop\File.txt
+        Console.WriteLine("Inserisci percorso File:");
 
         string? file = Console.ReadLine();
 
         try
         {
-
             var variabileConta = ContaParole(file);
 
             Console.WriteLine("Frequenza parole all'interno del file:\n");
@@ -23,32 +21,28 @@ class Program
                 Console.WriteLine($"{elemento.Key} {elemento.Value}");
             }
 
-        } catch (FileNotFoundException)
-        {
-            Console.WriteLine("File non trovato. Inserisci un percorso valido");
         }
-
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("Errore : File non trovaro. Inserisci un percorso valido."); 
+        }
     }
 
-    static Dictionary<string?,int> ContaParole(string? file){
+    static Dictionary<string?,int> ContaParole(string? file)
+    {
+        var variabileConta = new Dictionary<string,int>(StringComparer.OrdinalIgnoreCase);
 
-
-        var variabileConta = new Dictionary<string?,int> (StringComparer.OrdinalIgnoreCase);
-
-        foreach(var parola in File.ReadAllText(file).Split(' ', '\n', '\r', '\t', '.', ',', ';', ':', '!', '?'))
+        foreach (var elemento in File.ReadAllText(file).Split(' ', '\n', '\r', '\t', '.', ',', ';', ':', '!', '?'))
         {
-            if (!string.IsNullOrWhiteSpace(parola))
+            if (!string.IsNullOrWhiteSpace(elemento))
             {
-                string? parolaSenzaSpazi = parola.Trim();
+                string? parolaSenzaSpazi = elemento.Trim();
 
-                variabileConta[parolaSenzaSpazi] = variabileConta.TryGetValue(parolaSenzaSpazi, out int conta) ? conta + 1  : 1;
+                variabileConta[parolaSenzaSpazi] = variabileConta.TryGetValue(parolaSenzaSpazi, out int conta) ? conta + 1 : 1;
             }
         }
-
         return variabileConta;
-
-    }    
-    
+    }
 
     
 }
